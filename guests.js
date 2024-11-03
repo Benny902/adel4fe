@@ -12,7 +12,7 @@ async function loadGuests() {
         const totalAttendeesElement = document.getElementById("totalAttendees");
 
         tableBody.innerHTML = ""; // Clear previous entries
-        totalAttendeesElement.innerText = `(כמות אורחים כרגע: ${totalAttendees})`;
+        totalAttendeesElement.innerText = ` כמות אורחים כרגע:  ${totalAttendees} `;
 
         guests.forEach((guest, index) => {
             const row = tableBody.insertRow();
