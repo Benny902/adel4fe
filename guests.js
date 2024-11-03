@@ -12,7 +12,7 @@ async function loadGuests() {
         const totalAttendeesElement = document.getElementById("totalAttendees");
 
         tableBody.innerHTML = ""; // Clear previous entries
-        totalAttendeesElement.innerText = `כמות אורחים: ${totalAttendees}`;
+        totalAttendeesElement.innerText = `(כמות אורחים כרגע: ${totalAttendees})`;
 
         guests.forEach((guest, index) => {
             const row = tableBody.insertRow();
@@ -38,17 +38,13 @@ async function loadGuests() {
             row.insertCell(2).innerText = guest.phone;
             row.insertCell(3).innerText = guest.name;
         
-            // Add row number cell
-            row.insertCell(4).innerText = index + 1; // Row number (1-based index)
+            row.insertCell(4).innerText = index + 1; 
         });
     } catch (error) {
         console.error("Failed to load guests:", error);
     }
 }
 
-
-
-// Load guests when the page is loaded
 window.onload = loadGuests;
 
 async function deleteGuest(phone) {
@@ -63,7 +59,7 @@ async function deleteGuest(phone) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             alert("Guest deleted successfully!");
-            loadGuests(); // Refresh the guest list
+            loadGuests(); 
         } catch (error) {
             console.error("Failed to delete guest:", error);
         }
@@ -84,7 +80,7 @@ async function editGuest(phone) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             alert("Guest updated successfully!");
-            loadGuests(); // Refresh the guest list
+            loadGuests(); 
         } catch (error) {
             console.error("Failed to edit guest:", error);
         }
@@ -93,44 +89,37 @@ async function editGuest(phone) {
     }
 }
 
-let sortOrder = { column: -1, ascending: true }; // Track sort state
+let sortOrder = { column: -1, ascending: true };
 
 function sortTable(columnIndex) {
     const table = document.getElementById("guestTable");
-    const rows = Array.from(table.rows).slice(1); // Skip header row
+    const rows = Array.from(table.rows).slice(1);
 
-    // Sort the rows
     rows.sort((a, b) => {
         const aText = a.cells[columnIndex].innerText;
         const bText = b.cells[columnIndex].innerText;
 
         return sortOrder.ascending
             ? aText.localeCompare(bText)
-            : bText.localeCompare(aText); // Sort strings
+            : bText.localeCompare(aText); 
     });
 
-    // Toggle sort order for next click
     sortOrder.column = columnIndex;
     sortOrder.ascending = !sortOrder.ascending;
 
-    // Append sorted rows back to the table
     rows.forEach(row => table.appendChild(row));
 }
 
-
-// Function to download table as CSV
 function downloadCSV() {
     const table = document.getElementById("guestTable");
     let csvContent = "data:text/csv;charset=utf-8,";
 
-    // Get the headers (excluding "פעולות")
     const headers = Array.from(table.rows[0].cells)
         .slice(1) // Skip the first column
         .map(header => header.innerText)
         .join(",");
     csvContent += headers + "\n";
 
-    // Get each row's data (excluding "פעולות")
     for (let i = 1; i < table.rows.length; i++) {
         const rowData = Array.from(table.rows[i].cells)
             .slice(1) // Skip the first column
@@ -139,7 +128,6 @@ function downloadCSV() {
         csvContent += rowData + "\n";
     }
 
-    // Download the CSV file
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);

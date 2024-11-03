@@ -5,37 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>רשימת אורחים</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 </head>
 <body>
-    <h1>רשימת אורחים</h1>
-
-    <div id="summary">
-        <p id="totalGuests"></p>
-        <p id="totalAttendees"></p>
-    </div>
-
-    <!-- Add Download Buttons -->
     <button onclick="downloadCSV()">Download as CSV</button>
-    <button onclick="downloadPDF()">Download as PDF</button>
-
+    <button id="browserPrint">Download as PDF</button>
+    <h1>רשימת אורחים</h1>   
+    <div id="summary"> <h2 id="totalAttendees"> </h2> </div>
     <table id="guestTable" border="1">
         <thead>
             <tr>
-                <th onclick="sortTable(4)">פעולות</th> <!-- Actions first -->
+                <th onclick="sortTable(4)">פעולות</th> 
                 <th onclick="sortTable(0)">תאריך הרשמה</th>
                 <th onclick="sortTable(2)">פלאפון</th>
                 <th onclick="sortTable(3)">שם</th>
-                <th></th> <!-- Row number column -->
+                <th></th> 
             </tr>
         </thead>
         <tbody id="guestTableBody">
-            <!-- Guest entries will be dynamically populated here -->
+
         </tbody>
     </table>
 
-    <script src="guests.js"></script> <!-- Ensure this path is correct -->
+    <script src="guests.js"></script> 
+
+    <script>
+        function downloadPDFWithBrowserPrint() {
+            window.print();
+        }
+
+        document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
+    </script>
+
 </body>
 </html>
