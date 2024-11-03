@@ -116,3 +116,44 @@ function sortTable(columnIndex) {
     // Append sorted rows back to the table
     rows.forEach(row => table.appendChild(row));
 }
+
+
+// Function to download table as CSV
+function downloadCSV() {
+    const rows = Array.from(document.querySelectorAll("#guestTable tr"));
+    const csvContent = rows.map(row => {
+        const cells = Array.from(row.querySelectorAll("th, td"));
+        return cells.map(cell => cell.innerText).join(",");
+    }).join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "guest_list.csv";
+    link.click();
+}
+
+// Function to download table as PDF
+function downloadPDF() {
+    const { jsPDF } = window.jspdf; // Assuming you added jsPDF library in your project
+    const doc = new jsPDF();
+    doc.text("רשימת אורחים", 10, 10);
+
+    const rows = [];
+    const tableRows = document.querySelectorAll("#guestTable tr");
+
+    tableRows.forEach((row, rowIndex) => {
+        const rowData = [];
+        row.querySelectorAll("th, td").forEach(cell => {
+            rowData.push(cell.innerText);
+        });
+        rows.push(rowData);
+    });
+
+    doc.autoTable({
+        head: [rows[0]],  // Use first row as header
+        body: rows.slice(1) // Use remaining rows as body
+    });
+
+    doc.save("guest_list.pdf");
+}

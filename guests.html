@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>רשימת אורחים</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
 </head>
 <body>
     <h1>רשימת אורחים</h1>
@@ -13,6 +16,10 @@
         <p id="totalGuests"></p>
         <p id="totalAttendees"></p>
     </div>
+
+    <!-- Add Download Buttons -->
+    <button onclick="downloadCSV()">Download as CSV</button>
+    <button onclick="downloadPDF()">Download as PDF</button>
 
     <table id="guestTable" border="1">
         <thead>

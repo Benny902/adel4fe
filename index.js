@@ -12,7 +12,7 @@ async function submitGuest(event) {
         body: JSON.stringify(guest)
     });
 
-    alert("Thank you! We can't wait to see you!"); // New alert message
+    alert("תודה! מחכים לראותכם! 🤩"); // New alert message
 }
 
 // Event listener for the form submission
