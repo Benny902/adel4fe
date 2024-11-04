@@ -5,15 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הרשמת אורחים</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        button {
+            font-size: 1.5rem;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <img src="images/adel4.png" alt="Image Description" style="max-width: 100%; height: auto; display: block; margin: 0 auto; width: 100%; max-width: 500px;">
     <h2>אישור הגעה</h2>
-    <form id="guestForm" dir="rtl">
-        <input type="text" id="name" placeholder="שם מלא של הילד" required>
-        <input type="text" id="phone" placeholder="מספר פלאפון" required>
+    <form id="guestForm" dir="rtl" >
+        <input type="text" id="name" maxlength="50" placeholder="שם מלא של הילד" required>
+        <input type="text" id="phone" maxlength="50" placeholder="מספר פלאפון" required>
         <button type="submit">שלח אישור הגעה</button>
     </form>
+    <br>
+    <br>
+<hr style="max-width: 100%; height: auto; display: block; margin: 0 auto; width: 100%; max-width: 500px;">
+<br>
+    <h1>רשימת אורחים</h1>   
+    <h4>(אם צריך לערוך או למחוק תשלחו הודעה למילנה)</h4>  
+    <table id="guestTable2" border="1">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">תאריך הרשמה</th>
+                <th onclick="sortTable(2)">פלאפון</th>
+                <th onclick="sortTable(3)">שם</th>
+                <th>#</th> 
+            </tr>
+        </thead>
+        <tbody id="guestTableBody2">
+
+        </tbody>
+    </table>
+    <div id="summary"> <h2 id="totalAttendees"> </h2> </div>
+    <script src="check.js"></script> 
     <script src="index.js"></script>
 </body>
 </html>

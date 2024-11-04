@@ -13,6 +13,7 @@ async function submitGuest(event) {
     });
 
     alert("תודה! מחכים לראותכם! 🤩"); // New alert message
+    location.reload(); // Reload the page after the alert is dismissed
 }
 
 // Event listener for the form submission
