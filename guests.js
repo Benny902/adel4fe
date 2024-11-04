@@ -112,27 +112,33 @@ function sortTable(columnIndex) {
 
 function downloadCSV() {
     const table = document.getElementById("guestTable");
-    let csvContent = "data:text/csv;charset=utf-8,";
+    let csvContent = '';
 
+    // Get the headers (excluding "פעולות")
     const headers = Array.from(table.rows[0].cells)
-        .slice(1) // Skip the first column
+        .slice(1) // Skip the first column (פעולות)
         .map(header => header.innerText)
-        .join(",");
+        .join("\t"); // Use tab as a delimiter
     csvContent += headers + "\n";
 
+    // Get each row's data (excluding "פעולות")
     for (let i = 1; i < table.rows.length; i++) {
         const rowData = Array.from(table.rows[i].cells)
-            .slice(1) // Skip the first column
+            .slice(1) // Skip the first column (פעולות)
             .map(cell => cell.innerText)
-            .join(",");
+            .join("\t"); // Use tab as a delimiter
         csvContent += rowData + "\n";
     }
 
-    const encodedUri = encodeURI(csvContent);
+    // Create a blob and download the CSV file
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
     link.setAttribute("download", "guest_list.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
+
+
