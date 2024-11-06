@@ -1,5 +1,5 @@
 async function submitGuest(event) {
-    event.preventDefault(); // Prevent form from submitting in the traditional way
+    event.preventDefault();
 
     const guest = {
         name: document.getElementById("name").value,
@@ -11,10 +11,19 @@ async function submitGuest(event) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(guest)
     });
-
-    alert("תודה! מחכים לראותכם! 🤩"); // New alert message
-    location.reload(); // Reload the page after the alert is dismissed
+    document.getElementById("confirmationModal").style.display = "flex";
 }
 
-// Event listener for the form submission
 document.getElementById('guestForm').addEventListener('submit', submitGuest);
+
+document.querySelector(".close-button").addEventListener("click", function() {
+    document.getElementById("confirmationModal").style.display = "none";
+    location.reload();
+});
+
+window.addEventListener("click", function(event) {
+    if (event.target === document.getElementById("confirmationModal")) {
+        document.getElementById("confirmationModal").style.display = "none";
+        location.reload();
+    }
+});
