@@ -17,7 +17,6 @@ async function loadGuests() {
         guests.forEach((guest, index) => {
             const row = tableBody.insertRow();
 
-            // Add Actions cell
             const actionsCell = row.insertCell(0);
             
             const editButton = document.createElement("button");
@@ -28,12 +27,10 @@ async function loadGuests() {
             deleteButton.innerText = "מחק";
             deleteButton.onclick = () => deleteGuest(guest.phone);
             
-            // Add spacing between buttons
             actionsCell.appendChild(editButton);
             actionsCell.appendChild(document.createTextNode("\u00A0")); // Adds a non-breaking space
             actionsCell.appendChild(deleteButton);
         
-            // Insert other guest details
             row.insertCell(1).innerText = guest.submissionDate || "";
             row.insertCell(2).innerText = guest.phone;
             row.insertCell(3).innerText = guest.name;
@@ -130,12 +127,18 @@ function downloadCSV() {
         csvContent += rowData + "\n";
     }
 
-    // Create a blob and download the CSV file
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const fileName = `guest-list ${day}-${month}__${hour}-${minute}.csv`;
+
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.setAttribute("href", url);
-    link.setAttribute("download", "guest_list.csv");
+    link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
